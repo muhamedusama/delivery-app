@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 String predictionplant = "";
 String predictiondisease = "";
 String treatment = "";
-
+String role="";
 String severity="";
 String diseaseseverity="";
 String? token = "";

@@ -1,8 +1,11 @@
+
+
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:delivery/screens/login/cubit/cubit.dart';
 import 'package:delivery/screens/login/cubit/states.dart';
 import 'package:delivery/shared/components.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:delivery/shared/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,20 +19,19 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is LoginErrorStates)
           {
-            print('usos');
             showToast (text: "Invalid Email or Password", color: Colors.red ,state: ToastStates. ERROR);
           }
           if (state is LoginSuccessStates)
           {
-            // CacheHelper.saveData(key: 'uId',value: state.uId);
-            // token = CacheHelper.getData(key: 'uId');
-            //
-            // print("!!!!!!!!!!!!!!!!!!!!!!" + token!);
-
-            navigateTo(context, LoginScreen());
+        LoginCubit.get(context).getUserName();
+        await Future.delayed(const Duration(milliseconds: 1000));
+        print("############################################3");
+        print("a7a"+role);
+        print("############################################3");
+        navigateTo(context, LoginScreen());
           }
         },
         builder: (context, state) {
@@ -90,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                             //   return 'Password must be at least 8 characters';
                             // }
                             // if (!value.contains(RegExp(r'[A-Z]'))) {
-                            //   return 'Password must contain at least one uppercase letter';
+                             //   return 'Password must contain at least one uppercase letter';
                             // }
                             // if (!value.contains(RegExp(r'[a-z]'))) {
                             //   return 'Password must contain at least one lowercase letter';
