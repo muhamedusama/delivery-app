@@ -4,6 +4,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:delivery/screens/login/cubit/cubit.dart';
 import 'package:delivery/screens/login/cubit/states.dart';
+import 'package:delivery/screens/manager/manager.dart';
+import 'package:delivery/screens/orderpage/orderpage.dart';
+import 'package:delivery/screens/supervisor/supervisor.dart';
 import 'package:delivery/shared/components.dart';
 import 'package:delivery/shared/components.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +29,20 @@ class LoginScreen extends StatelessWidget {
           }
           if (state is LoginSuccessStates)
           {
-        LoginCubit.get(context).getUserName();
-        await Future.delayed(const Duration(milliseconds: 1000));
-        print("############################################3");
-        print("a7a"+role);
-        print("############################################3");
-        navigateTo(context, LoginScreen());
+        await LoginCubit.get(context).getUserName();
+         String userrole=LoginCubit.get(context).role;
+         if (userrole=="supervisor")
+           {
+            navigateTo(context, Supervisor());
+           }
+        else if (userrole=="user")
+        {
+        navigateTo(context, OrderPage());
+        }
+         else if (userrole=="manager")
+         {
+           navigateTo(context, Manager());
+         }
           }
         },
         builder: (context, state) {

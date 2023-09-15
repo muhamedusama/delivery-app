@@ -13,6 +13,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 
 class LoginCubit extends Cubit<LoginStates>
 {
+  late String role;
   LoginCubit(): super(LoginInitialStates());
   static LoginCubit get(context)=>BlocProvider.of(context);
 
