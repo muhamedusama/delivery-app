@@ -24,7 +24,7 @@ class orderpageCubit extends Cubit<orderingStates> {
   TextEditingController sampledata2 = new TextEditingController();
   // Map <String, dynamic> data= {"Details":sampledata1.text,"address":sampledata2.text};
 var nulls ="";
-var restaurant_name ;
+late String restaurant_name ;
   increasedrivers (){
     number++;
     emit(change_driverno_states());
@@ -34,25 +34,34 @@ var restaurant_name ;
     number= number-1;
     emit(change_driverno_states());
   }
-  void createorder (var address ) async {
-     await // Map <String, dynamic> data= {"drivers":number,"address":address};
-     FirebaseFirestore.instance.collection("Orders").
-     doc(
-       restaurant_name =  FirebaseAuth.instance.currentUser!.email
-     ).set(
-       {
-         "rest_name":restaurant_name,
-         "address": address ,
-         "Supervisor name":nulls,
-         "driver name":nulls,
-         "drivers":number,
-         "taken":nulls,
-       }
-     );
+  void createorder(var address, String nameses) async {
+    try {
+      await FirebaseFirestore.instance.collection("Orders").add({
+        "rest_name": nameses,
+        "address": address,
+        "Supervisor name": null,
+        "driver name": null,
+        "drivers": number,
+        "taken": null,
+      });
+      print("Order created successfully!");
+    } catch (e) {
+      print("Error creating order: $e");
+    }
+  }
 
+  getorder_restaurantName() async {
+    //print(FirebaseAuth.instance.currentUser!.uid);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      // print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+      print(value.data());
+      restaurant_name=value.data()?['name'];
 
-  print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-print(restaurant_name);
+    });
   }
 
 

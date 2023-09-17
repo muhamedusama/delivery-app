@@ -30,6 +30,7 @@ class LoginCubit extends Cubit<LoginStates>
       print(role);
     });
   }
+
   // userModel model = userModel(name: '', email: '', uId: '', role: '');
   //
   // void getUserData()

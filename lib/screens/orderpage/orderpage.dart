@@ -1,6 +1,10 @@
 
 
 
+// import 'dart:io';
+
+import 'dart:io';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:delivery/screens/login/cubit/cubit.dart';
 import 'package:delivery/screens/login/cubit/states.dart';
@@ -15,9 +19,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderPage extends StatelessWidget {
+  get someNullableVariable => null;
+
   @override
   Widget build(BuildContext context) {
     var address_controller = TextEditingController();
+    String Last_name = someNullableVariable ?? ""; // Provide an empty string as a default value if someNullableVariable is null
+
     return BlocProvider(
       create: (BuildContext context) => orderpageCubit(),
       child: BlocConsumer<orderpageCubit, orderingStates>(
@@ -46,9 +54,13 @@ class OrderPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16.0),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                        await orderpageCubit.get(context).getorder_restaurantName();
+                      Last_name = orderpageCubit.get(context).restaurant_name;
+
+                       // sleep(const Duration(milliseconds: 250));
                       var addresses =address_controller.text.trim();
-                            orderpageCubit.get(context).createorder(addresses);
+                       orderpageCubit.get(context).createorder(addresses, Last_name);
                       // Add your logic here for handling text field values.
                     },
                     child: Text('Submit'),
