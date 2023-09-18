@@ -37,7 +37,7 @@ late String restaurant_name ;
   }
   void createorder(var address, String nameses) async {
     try {
-      await FirebaseFirestore.instance.collection("Orders").add({
+      await FirebaseFirestore.instance.collection("Orders").doc(FirebaseAuth.instance.currentUser!.email).set({
         "rest_name": nameses,
         "address": address,
         "Supervisor name": null,
