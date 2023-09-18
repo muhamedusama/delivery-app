@@ -1,8 +1,4 @@
-
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:delivery/models/usermodel.dart';
 import 'package:delivery/screens/login/cubit/states.dart';
 import 'package:delivery/shared/components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,10 +20,7 @@ class LoginCubit extends Cubit<LoginStates>
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((value) {
-          print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-      print(value.data());
       role=value.data()?['role'];
-      print(role);
     });
   }
 

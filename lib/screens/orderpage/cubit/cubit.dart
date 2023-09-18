@@ -24,6 +24,7 @@ class orderpageCubit extends Cubit<orderingStates> {
   TextEditingController sampledata2 = new TextEditingController();
   // Map <String, dynamic> data= {"Details":sampledata1.text,"address":sampledata2.text};
 var nulls ="";
+bool takenornot=false;
 late String restaurant_name ;
   increasedrivers (){
     number++;
@@ -42,7 +43,7 @@ late String restaurant_name ;
         "Supervisor name": null,
         "driver name": null,
         "drivers": number,
-        "taken": null,
+        "taken": takenornot,
       });
       print("Order created successfully!");
     } catch (e) {

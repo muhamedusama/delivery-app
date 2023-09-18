@@ -1,5 +1,7 @@
 import 'package:delivery/screens/login/cubit/cubit.dart';
 import 'package:delivery/screens/login/login.dart';
+import 'package:delivery/screens/orderpage/cubit/cubit.dart';
+import 'package:delivery/screens/supervisor/cubit/cubit.dart';
 import 'package:delivery/shared/network/network.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +20,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            appBarTheme: AppBarTheme(
-              color: Colors.teal,
-            ),
+    return MultiBlocProvider(
+     providers: [
+       BlocProvider(create: (BuildContext context)=>LoginCubit()..getUserName()),
+       BlocProvider(create: (BuildContext context)=>orderpageCubit()..getorder_restaurantName()),
+       BlocProvider(create: (BuildContext context)=>SupervisorCubit()),
+
+     ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              appBarTheme: AppBarTheme(
+                color: Colors.teal,
+              ),
+          ),
+          home: Scaffold(
+            backgroundColor: Colors.teal,
+          ),
+          initialRoute: 'login_screen' ,
+          routes: {
+            'login_screen': (context)=> LoginScreen(),
+          },
         ),
-        home: Scaffold(
-          backgroundColor: Colors.teal,
-        ),
-        initialRoute: 'login_screen' ,
-        routes: {
-          'login_screen': (context)=> LoginScreen(),
-        },
-      );
+    );
   }
 }
